@@ -21,12 +21,31 @@ It can be proven that 8 is the minimum number of minutes needed.
 2. **Input**: s = "a", k = 1
    - **Output**: -1
    - **Explanation**: It is not possible to take one 'b' or 'c' so return -1.
-   ### Solution Approach
 
-The solution uses a sliding window technique to efficiently solve the problem:
-- Count total character occurrences
-- Use a dynamic window to minimize time taken
-- Track minimum window satisfying the character count requirement
+## Solution Explanation
+
+### Frequency Check
+First, the function checks the frequency of each character ('a', 'b', and 'c') in the string `s`. If the minimum count of any character is less than `k`, it means it is impossible to collect at least `k` of each character. In such cases, the function immediately returns `-1`.
+
+### Sliding Window
+The solution uses a **sliding window approach** with two pointers: `l` (left pointer) and `r` (right pointer). Initially, the `l` pointer starts from the beginning of the string, while the `r` pointer iterates through the string from left to right.
+
+At each step, the function tracks the number of characters collected using the `count` array, which stores the count of characters 'a', 'b', and 'c'.
+
+### Right Pointer Movement
+As the `r` pointer moves through the string:
+- The corresponding character count in the `count` array is decremented (since we are collecting the character).
+- The function checks if the minimum count of any character in `count` is still below `k`. If it is, the function continues adjusting the window.
+
+### Left Pointer Adjustment
+Whenever the minimum character count in `count` falls below `k`, the `l` pointer is moved forward. This process is repeated until the window size has enough characters such that all the counts of 'a', 'b', and 'c' meet or exceed `k`. The corresponding character count in `count` is incremented as the `l` pointer moves.
+
+### Minimum Time Calculation
+At each step, the function calculates the current window size (the number of characters between `l` and `r`). It then updates the result (`res`) if the current window size is smaller than the previous minimum window.
+
+### Return Minimum Time
+After the iteration finishes, the function returns the smallest window size (`res`) that satisfies the condition of collecting at least `k` characters of 'a', 'b', and 'c'. This value represents the **minimum number of minutes** required.
+
 
 ### Code Solution
 
